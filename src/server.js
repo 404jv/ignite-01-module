@@ -27,9 +27,9 @@ const server = http.createServer((request, response) => {
       name: 'John Doe',
       email: 'john.doe@gmail.com'
     })
-    return response.end('Criação de Usuários')
+    return response.writeHead(201).end()
   }
-  return response.end('Hello Ignite!')
+  return response.writeHead(404).end()
 })
 
 server.listen(3333)
