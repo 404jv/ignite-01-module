@@ -14,7 +14,7 @@ GET, POST, PUT, PATCH, DELETE
 
 const users = []
 
-const server = http.createServer((request, response) => {
+const server = http.createServer(async (request, response) => {
   const { method, url } = request
   if (method === 'GET' && url === '/users') {
     return response
@@ -22,10 +22,16 @@ const server = http.createServer((request, response) => {
       .end(JSON.stringify(users));
   }
   if (method === 'POST' && url === '/users') {
+    const buffers = []
+    for await (const chunk of request) {
+      buffers.push(chunk)
+    }
+    const body = JSON.parse(Buffer.concat(buffers).toString())
+    const { name, email } = body
     users.push({
       id: 1,
-      name: 'John Doe',
-      email: 'john.doe@gmail.com'
+      name,
+      email,
     })
     return response.writeHead(201).end()
   }
