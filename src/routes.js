@@ -25,5 +25,12 @@ export const routes = [
       database.insert('users', user)
       return response.writeHead(201).end()
     }
+  },
+  {
+    method: 'DELETE',
+    path: '/users/[URL DINÂMICA]',
+    handler: (request, response) => {
+
+    }
   }
 ]
