@@ -30,7 +30,7 @@ const server = http.createServer(async (request, response) => {
       name,
       email,
     }
-    database.push(user)
+    database.insert('users', user)
     return response.writeHead(201).end()
   }
   return response.writeHead(404).end()
