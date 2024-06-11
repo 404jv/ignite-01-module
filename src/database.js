@@ -19,8 +19,15 @@ export class Database {
     fs.writeFile(databasePath, JSON.stringify(this.#database))
   }
 
-  select(table) {
-    const data = this.#database[table] ?? []
+  select(table, search) {
+    let data = this.#database[table] ?? []
+    if (search) {
+      data = data.filter(row => {
+        const nameFiltered = row.name.toLowerCase().includes(search.toLowerCase())
+        const emailFiltered = row.email.toLowerCase().includes(search.toLowerCase())
+        return nameFiltered || emailFiltered;
+      })
+    }
     return data
   }
 
